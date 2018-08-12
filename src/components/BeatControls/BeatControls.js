@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import BeatToggle from './BeatToggle'
+import BeatsPerMinute from './BeatsPerMinute'
 
 const Container = styled.div`
   display: flex;
@@ -9,9 +10,10 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const BeatControls = ({ onPlay, onNext }) => (
+const BeatControls = ({ onPlay, adjustBPM }) => (
   <Container>
     <BeatToggle onClick={onPlay} />
+    <BeatsPerMinute handleChange={adjustBPM} />
   </Container>
 )
 

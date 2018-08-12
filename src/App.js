@@ -26,7 +26,7 @@ class App extends Component {
   samplerLoaded = () => {
     this.setState({ loading: false })
     const { BeatGrid } = this.refs
-    this.synth.repeat(BeatGrid.trigger, '16n')
+    this.synth.repeat(BeatGrid.trigger, '8n')
   }
 
   play = () => {
@@ -35,6 +35,10 @@ class App extends Component {
 
   next = () => {
     this.synth.nextBeat()
+  }
+
+  adjustBPM = event => {
+    this.synth.setBPM(event.target.value)
   }
 
   render () {
@@ -50,7 +54,7 @@ class App extends Component {
             synth={this.synth}
             scale={availableNotes.reverse()}
           />
-          <BeatControls onPlay={this.play} />
+          <BeatControls onPlay={this.play} adjustBPM={this.adjustBPM} />
         </Container>
       )
     }

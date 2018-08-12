@@ -28,6 +28,10 @@ class Synth {
   playNote (note, time, timing = '16n') {
     this.sampler.triggerAttackRelease(note, this.timing || timing, time)
   }
+
+  setBPM (bpm = 120) {
+    getTransport().bpm.value = bpm
+  }
 }
 
 export default Synth
