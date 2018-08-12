@@ -20,7 +20,7 @@ const Container = styled.div`
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
   }
 
-   & .rect2 {
+  & .rect2 {
     -webkit-animation-delay: -1.1s;
     animation-delay: -1.1s;
   }
