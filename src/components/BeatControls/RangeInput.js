@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 const RangeInput = styled.input`
   & {
-    height: 27px;
+    height: 10px;
     -webkit-appearance: none;
+    border-radius: 10px;
     margin: 10px 0;
     width: 100%;
   }
@@ -15,7 +16,6 @@ const RangeInput = styled.input`
     height: 10px;
     cursor: pointer;
     animate: 0.2s;
-    background: #FFFFFF;
     border-radius: 5px;
     border: 0px solid #000000;
   }

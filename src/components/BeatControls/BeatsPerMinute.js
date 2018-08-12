@@ -4,12 +4,18 @@ import RangeInput from './RangeInput'
 
 const Container = styled.div`
   margin-left: 8px;
+  display: flex;
+  min-width: 200px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
 `
 
 const Label = styled.span`
   color: white;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
 `
 
 class BeatsPerMinute extends Component {
