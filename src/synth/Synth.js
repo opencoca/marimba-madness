@@ -12,8 +12,8 @@ class Synth {
     this.setVolume()
   }
 
-  setVolume (volume = -20) {
-    this.sampler.volume.setValueAtTime(volume, 0)
+  setVolume (volume = -12) {
+    this.sampler.volume.value = volume
   }
 
   toggle () {
