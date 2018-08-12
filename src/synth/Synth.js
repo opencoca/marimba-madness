@@ -20,12 +20,12 @@ class Synth {
     getTransport().toggle()
   }
 
-  repeat (callback, timing = '16n') {
+  repeat (callback, timing = '8n') {
     this.timing = timing
     getTransport().scheduleRepeat(callback, timing)
   }
 
-  playNote (note, time, timing = '16n') {
+  playNote (note, time, timing = '8n') {
     this.sampler.triggerAttackRelease(note, this.timing || timing, time)
   }
 

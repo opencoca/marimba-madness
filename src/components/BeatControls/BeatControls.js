@@ -8,12 +8,14 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  margin-top: 8px;
 `
 
-const BeatControls = ({ onPlay, adjustBPM }) => (
+const BeatControls = ({ onPlay, bpm, adjustBPM }) => (
   <Container>
     <BeatToggle onClick={onPlay} />
-    <BeatsPerMinute handleChange={adjustBPM} />
+    <BeatsPerMinute bpm={bpm} handleChange={adjustBPM} />
   </Container>
 )
 

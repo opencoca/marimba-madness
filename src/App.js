@@ -18,9 +18,11 @@ const Container = styled.div`
 
 class App extends Component {
   state = { loading: true }
+  initialBPM = 160
 
   componentDidMount () {
     this.synth = new Synth(this.samplerLoaded)
+    this.synth.setBPM(this.initialBPM)
   }
 
   samplerLoaded = () => {
@@ -54,7 +56,11 @@ class App extends Component {
             synth={this.synth}
             scale={availableNotes.reverse()}
           />
-          <BeatControls onPlay={this.play} adjustBPM={this.adjustBPM} />
+          <BeatControls
+            onPlay={this.play}
+            adjustBPM={this.adjustBPM}
+            bpm={this.initialBPM}
+          />
         </Container>
       )
     }
