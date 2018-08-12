@@ -46,11 +46,11 @@ class BeatColumn extends Component {
   }
 
   playBeat = time => {
-    const { scale, sampler } = this.props
+    const { scale, synth } = this.props
     const { active } = this.state
     const notes = scale.filter((note, index) => active[index])
     notes.forEach(note => {
-      sampler.triggerAttackRelease(note, '8n', time)
+      synth && synth.playNote(note, time)
     })
   }
 

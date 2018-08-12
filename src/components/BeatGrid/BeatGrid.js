@@ -36,7 +36,7 @@ class BeatGrid extends Component {
   render () {
     const cols = []
     const { count } = this.state
-    const { scale, sampler } = this.props
+    const { scale, synth } = this.props
 
     for (let i = 0; i < this.columns; i++) {
       const keyRef = i.toString(10)
@@ -46,7 +46,7 @@ class BeatGrid extends Component {
           key={keyRef}
           scale={scale}
           playing={count % this.columns === i}
-          sampler={sampler}
+          synth={synth}
         />
       )
     }
