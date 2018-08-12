@@ -37,5 +37,5 @@ module.exports = {
     'A3',
     'B3',
     'C4'
-  ]
+  ].reverse()
 }

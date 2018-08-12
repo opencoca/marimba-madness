@@ -22,16 +22,15 @@ const Container = styled.div`
 const Arrows = styled.i`
   font-size: 18px;
   color: #363636;
-  margin-left: ${props => (props.forward ? 2 : -2)}px;
 `
 
-const BeatSkip = ({ direction, onClick }) => (
+const BeatColumn = ({ mode, onClick }) => (
   <Container onClick={onClick}>
     <Arrows
-      className={`fas fa-${direction}`}
-      forward={direction === 'forward'}
+      className={`fas fa-${mode === 'add' ? 'plus' : 'minus'}`}
+      mode={mode}
     />
   </Container>
 )
 
-export default BeatSkip
+export default BeatColumn

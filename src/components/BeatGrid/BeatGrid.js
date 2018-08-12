@@ -11,7 +11,6 @@ const Container = styled.div`
 `
 
 class BeatGrid extends Component {
-  columns = Math.floor(window.innerWidth / 100)
   state = { count: -1 }
 
   trigger = time => {
@@ -19,21 +18,22 @@ class BeatGrid extends Component {
   }
 
   playBeat = time => () => {
-    const activeBeat = this.state.count % this.columns
+    const { columns } = this.props
+    const activeBeat = this.state.count % columns
     this.refs[activeBeat].playBeat(time)
   }
 
   renderBeatColumns = () => {
-    const { scale, synth } = this.props
+    const { scale, synth, columns } = this.props
     const { count } = this.state
     const cols = []
-    for (let i = 0; i < this.columns; i++) {
+    for (let i = 0; i < columns; i++) {
       cols.push(
         <BeatColumn
           ref={i.toString(10)}
           key={i.toString(10)}
           scale={scale}
-          playing={count % this.columns === i}
+          playing={count % columns === i}
           synth={synth}
         />
       )

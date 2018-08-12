@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import RangeInput from './RangeInput'
 
-const Container = styled.div``
+const Container = styled.div`
+  margin-left: 8px;
+`
 
 const Label = styled.span`
   color: white;

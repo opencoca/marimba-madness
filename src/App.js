@@ -17,7 +17,11 @@ const Container = styled.div`
 `
 
 class App extends Component {
-  state = { loading: true }
+  state = {
+    loading: true,
+    availableNotes: availableNotes,
+    columns: Math.floor(window.innerWidth / 100)
+  }
   initialBPM = 160
 
   componentDidMount () {
@@ -43,8 +47,15 @@ class App extends Component {
     this.synth.setBPM(event.target.value)
   }
 
+  changeColumns = diff => {
+    const currentCols = this.state.columns
+    if (currentCols + diff < 4 || currentCols + diff > 30) return
+
+    this.setState({ columns: currentCols + diff })
+  }
+
   render () {
-    const { loading } = this.state
+    const { loading, columns } = this.state
 
     if (loading) {
       return <Loading />
@@ -54,10 +65,12 @@ class App extends Component {
           <BeatGrid
             ref='BeatGrid'
             synth={this.synth}
-            scale={availableNotes.reverse()}
+            scale={availableNotes}
+            columns={columns}
           />
           <BeatControls
             onPlay={this.play}
+            changeColumns={this.changeColumns}
             adjustBPM={this.adjustBPM}
             bpm={this.initialBPM}
           />
