@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import BeatGrid from './components/BeatGrid/BeatGrid'
 import Synth from './synth/Synth'
 import Loading from './components/Loading'
-
-const Tone = require('tone')
+import { availableNotes } from './constants/scale'
+import BeatControls from './components/BeatControls/BeatControls'
 
 const Container = styled.div`
   background-color: #232323;
@@ -33,14 +33,27 @@ class App extends Component {
     this.synth.toggle()
   }
 
+  next = () => {
+    this.synth.nextBeat()
+  }
+
   render () {
     const { loading } = this.state
-    return loading
-      ? <Loading />
-      : <Container>
-        <BeatGrid ref='BeatGrid' synth={this.synth} />
-        <button onClick={this.play}>play</button>
-      </Container>
+
+    if (loading) {
+      return <Loading />
+    } else {
+      return (
+        <Container>
+          <BeatGrid
+            ref='BeatGrid'
+            synth={this.synth}
+            scale={availableNotes.reverse()}
+          />
+          <BeatControls onPlay={this.play} />
+        </Container>
+      )
+    }
   }
 }
 

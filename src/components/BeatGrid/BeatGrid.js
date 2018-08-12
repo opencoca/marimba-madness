@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import BeatColumn from '../BeatColumn/BeatColumn'
 import BeatLabels from './BeatLabels'
-const Tone = require('tone')
 
 const Container = styled.div`
   background-color: #232323;
@@ -12,74 +11,45 @@ const Container = styled.div`
 `
 
 class BeatGrid extends Component {
-  constructor (props) {
-    super(props)
-    this.columns = Math.floor(window.innerWidth / 80)
-    this.state = {
-      count: -1
-    }
-  }
+  columns = Math.floor(window.innerWidth / 100)
+  state = { count: -1 }
 
-  trigger = time => this.updateCount(time)
-
-  updateCount = time => {
-    const cols = this.columns
-    const newCount = this.state.count + 1
+  trigger = time => {
     this.setState(prev => ({ count: prev.count + 1 }), this.playBeat(time))
   }
 
   playBeat = time => () => {
-    const { count } = this.state
-    this.refs[count % this.columns].playBeat(time)
+    const activeBeat = this.state.count % this.columns
+    this.refs[activeBeat].playBeat(time)
   }
 
-  render () {
-    const cols = []
-    const { count } = this.state
+  renderBeatColumns = () => {
     const { scale, synth } = this.props
-
+    const { count } = this.state
+    const cols = []
     for (let i = 0; i < this.columns; i++) {
-      const keyRef = i.toString(10)
       cols.push(
         <BeatColumn
-          ref={keyRef}
-          key={keyRef}
+          ref={i.toString(10)}
+          key={i.toString(10)}
           scale={scale}
           playing={count % this.columns === i}
           synth={synth}
         />
       )
     }
+    return cols
+  }
 
+  render () {
+    const { scale } = this.props
     return (
       <Container>
         <BeatLabels scale={scale} />
-        {cols}
+        {this.renderBeatColumns()}
       </Container>
     )
   }
-}
-
-BeatGrid.displayName = 'BeatGrid'
-BeatGrid.defaultProps = {
-  columns: 13,
-  scale: [
-    'C2',
-    'D2',
-    'E2',
-    'F2',
-    'G2',
-    'A2',
-    'B2',
-    'C3',
-    'D3',
-    'E3',
-    'F3',
-    'G3',
-    'A3',
-    'B3',
-    'C4'
-  ].reverse()
 }
 
 export default BeatGrid

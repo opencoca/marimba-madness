@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import BeatBox from './BeatBox'
 
-const Tone = require('tone')
-
 const Container = styled.div`
   flex: 1;
   display: flex;
@@ -28,28 +26,28 @@ const Overlay = styled.div`
 class BeatColumn extends Component {
   constructor (props) {
     super(props)
-    const active = []
     const { rows } = this.props
-    for (let i = 0; i < rows; i++) {
-      active.push(false)
-    }
-
-    this.state = { active }
+    const activeBoxes = new Array(rows).fill(false)
+    const activeNotes = []
+    this.state = { activeBoxes, activeNotes }
   }
 
   toggleActive = i => () => {
+    const { scale } = this.props
     this.setState(prev => {
-      const actives = [...prev.active]
-      actives[i] = !actives[i]
-      return { active: actives }
+      const activeBoxes = [...prev.activeBoxes]
+      activeBoxes[i] = !activeBoxes[i]
+
+      const activeNotes = scale.filter((note, index) => activeBoxes[index])
+
+      return { activeBoxes, activeNotes }
     })
   }
 
   playBeat = time => {
-    const { scale, synth } = this.props
-    const { active } = this.state
-    const notes = scale.filter((note, index) => active[index])
-    notes.forEach(note => {
+    const { synth } = this.props
+    const { activeNotes } = this.state
+    activeNotes.forEach(note => {
       synth && synth.playNote(note, time)
     })
   }
@@ -62,7 +60,7 @@ class BeatColumn extends Component {
         <BeatBox
           key={i.toString(10)}
           note={scale[i]}
-          active={this.state.active[i]}
+          active={this.state.activeBoxes[i]}
           onClick={this.toggleActive(i)}
         />
       )
@@ -73,7 +71,10 @@ class BeatColumn extends Component {
   render () {
     const { playing } = this.props
     return (
-      <Container>{this.renderBoxes()}<Overlay playing={playing} /></Container>
+      <Container>
+        {this.renderBoxes()}
+        <Overlay playing={playing} />
+      </Container>
     )
   }
 }
