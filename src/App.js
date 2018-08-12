@@ -51,7 +51,7 @@ class App extends Component {
     this.setState({ loading: false })
     console.log('loaded samples')
     const { BeatGrid } = this.refs
-    Tone.Transport.scheduleRepeat(BeatGrid.trigger, '8n')
+    Tone.Transport.scheduleRepeat(BeatGrid.trigger, '16n')
   }
 
   play = () => {

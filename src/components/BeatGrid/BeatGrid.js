@@ -16,7 +16,7 @@ class BeatGrid extends Component {
     super(props)
     this.columns = Math.floor(window.innerWidth / 80)
     this.state = {
-      count: 0
+      count: -1
     }
   }
 
@@ -25,12 +25,12 @@ class BeatGrid extends Component {
   updateCount = time => {
     const cols = this.columns
     const newCount = this.state.count + 1
-    this.setState({ count: newCount % cols }, this.playBeat())
+    this.setState(prev => ({ count: prev.count + 1 }), this.playBeat(time))
   }
 
-  playBeat = () => time => {
+  playBeat = time => () => {
     const { count } = this.state
-    this.refs[count].playBeat(time)
+    this.refs[count % this.columns].playBeat(time)
   }
 
   render () {
@@ -45,7 +45,7 @@ class BeatGrid extends Component {
           ref={keyRef}
           key={keyRef}
           scale={scale}
-          playing={count === i}
+          playing={count % this.columns === i}
           sampler={sampler}
         />
       )
