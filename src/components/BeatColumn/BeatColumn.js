@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: stretch;
   justify-content: center;
   background-color: ${props => props.background};
-  margin-left: ${props => (props.id % 2 == 1 ? 0 : 2)}px;
+  margin-left: ${props => (props.id % 2 === 1 ? 0 : 2)}px;
 `
 
 const Overlay = styled.div`
@@ -28,10 +28,7 @@ const Overlay = styled.div`
 class BeatColumn extends Component {
   constructor (props) {
     super(props)
-    const { rows } = this.props
-    const activeBoxes = new Array(rows).fill(false)
-    const activeNotes = []
-    this.state = { activeBoxes, activeNotes }
+    this.state = { activeBoxes: [] }
   }
 
   toggleActive = i => () => {
@@ -47,16 +44,16 @@ class BeatColumn extends Component {
   }
 
   playBeat = time => {
-    const { synth } = this.props
-    const { activeNotes } = this.state
+    const { synth, scale } = this.props
+    const { activeBoxes } = this.state
+    const activeNotes = scale.filter((note, index) => activeBoxes[index])
     activeNotes.forEach(note => {
       synth && synth.playNote(note, time)
     })
   }
 
   resetColumn = () => {
-    const { rows } = this.props
-    this.setState({ activeBoxes: new Array(rows).fill(false), activeNotes: [] })
+    this.setState({ activeBoxes: [], activeNotes: [] })
   }
 
   componentDidMount () {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import BeatColumn from '../BeatColumn/BeatColumn'
-import BeatLabels from './BeatLabels'
 
 const Container = styled.div`
   background-color: #232323;
@@ -46,10 +45,9 @@ class BeatGrid extends Component {
   }
 
   render () {
-    const { scale, background } = this.props
+    const { background } = this.props
     return (
       <Container background={background}>
-        {/* <BeatLabels scale={scale} /> */}
         {this.renderBeatColumns()}
       </Container>
     )

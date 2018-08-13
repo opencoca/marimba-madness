@@ -17,34 +17,36 @@ const Container = styled.div`
 `
 
 class App extends Component {
-  state = {
-    loading: true,
-    availableNotes: availableNotes,
-    columns: Math.floor(window.innerWidth / 100)
-  }
-  initialBPM = 160
+  constructor (props) {
+    super(props)
+    const synth = new Synth(this.samplerLoaded)
 
-  componentDidMount () {
-    this.synth = new Synth(this.samplerLoaded)
-    this.synth.setBPM(this.initialBPM)
+    this.state = {
+      loading: true,
+      columns: Math.floor(window.innerWidth / 100),
+      availableNotes,
+      synth
+    }
+    this.initialBPM = 160
   }
 
   samplerLoaded = () => {
     this.setState({ loading: false })
+    this.state.synth.setBPM(this.initialBPM)
     const { BeatGrid } = this.refs
-    this.synth.repeat(BeatGrid.trigger, '8n')
+    this.state.synth.repeat(BeatGrid.trigger, '8n')
   }
 
   play = () => {
-    this.synth.toggle()
+    this.state.synth.toggle()
   }
 
   next = () => {
-    this.synth.nextBeat()
+    this.state.synth.nextBeat()
   }
 
   adjustBPM = event => {
-    this.synth.setBPM(event.target.value)
+    this.state.synth.setBPM(event.target.value)
   }
 
   changeColumns = diff => {
@@ -54,8 +56,30 @@ class App extends Component {
     this.setState({ columns: currentCols + diff })
   }
 
+  setScale = scale => {
+    scale = [
+      'C1',
+      'D1',
+      'E1',
+      'F1',
+      'G1',
+      'A1',
+      'B1',
+      'C2',
+      'D2',
+      'E2',
+      'F2',
+      'G2',
+      'A2',
+      'B2',
+      'C3'
+    ].reverse()
+    console.log(scale)
+    this.setState({ availableNotes: scale })
+  }
+
   render () {
-    const { loading, columns } = this.state
+    const { loading, columns, synth, availableNotes } = this.state
 
     if (loading) {
       return <Loading />
@@ -64,7 +88,7 @@ class App extends Component {
         <Container>
           <BeatGrid
             ref='BeatGrid'
-            synth={this.synth}
+            synth={synth}
             scale={availableNotes}
             columns={columns}
             background='gray'
@@ -76,6 +100,7 @@ class App extends Component {
             adjustBPM={this.adjustBPM}
             bpm={this.initialBPM}
           />
+          <button onClick={this.setScale}>SCALE</button>
         </Container>
       )
     }
