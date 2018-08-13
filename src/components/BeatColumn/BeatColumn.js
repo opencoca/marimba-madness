@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import BeatBox from './BeatBox'
+import Subject from '../../observer/Subject'
 
 const Container = styled.div`
   flex: 1;
@@ -55,6 +56,14 @@ class BeatColumn extends Component {
   resetColumn = () => {
     const { rows } = this.props
     this.setState({ activeBoxes: new Array(rows).fill(false), activeNotes: [] })
+  }
+
+  componentDidMount () {
+    Subject.subscribe('reset', this.resetColumn)
+  }
+
+  componentWillUnmount () {
+    Subject.unsubscribe('reset', this.resetColumn)
   }
 
   renderBoxes = () => {

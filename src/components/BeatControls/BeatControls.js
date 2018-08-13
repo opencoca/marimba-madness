@@ -4,6 +4,7 @@ import BeatToggle from './BeatToggle'
 import BeatsPerMinute from './BeatsPerMinute'
 import BeatChange from './BeatChange'
 import BeatReset from './BeatReset'
+import Subject from '../../observer/Subject'
 
 const Container = styled.div`
   display: flex;
@@ -21,7 +22,11 @@ const BeatChangeContainer = styled.div`
   justify-content: center;
 `
 
-const BeatControls = ({ onPlay, bpm, adjustBPM, changeColumns, onReset }) => (
+const onReset = () => {
+  Subject.fire('reset')
+}
+
+const BeatControls = ({ onPlay, bpm, adjustBPM, changeColumns }) => (
   <Container>
     <BeatReset onClick={onReset} />
     <BeatToggle onClick={onPlay} />
