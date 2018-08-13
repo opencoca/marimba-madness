@@ -100,7 +100,6 @@ class App extends Component {
             adjustBPM={this.adjustBPM}
             bpm={this.initialBPM}
           />
-          <button onClick={this.setScale}>SCALE</button>
         </Container>
       )
     }

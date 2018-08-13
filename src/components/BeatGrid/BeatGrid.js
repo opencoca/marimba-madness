@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import BeatColumn from '../BeatColumn/BeatColumn'
 
 const Container = styled.div`
+  flex: 1;
+  width: calc(100vw - 2px);
+  margin: 0;
+  display: flex;
   background-color: #232323;
   border: 0.5px solid ${props => props.background};
-  width: calc(100vw - 1px);
-  flex: 1;
-  display: flex;
 `
 
 class BeatGrid extends Component {
