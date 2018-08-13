@@ -10,7 +10,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  background-color: black;
+  background-color: ${props => props.background};
+  margin-left: ${props => (props.id % 2 == 1 ? 0 : 2)}px;
 `
 
 const Overlay = styled.div`
@@ -67,11 +68,12 @@ class BeatColumn extends Component {
   }
 
   renderBoxes = () => {
-    const { scale } = this.props
+    const { scale, foreground } = this.props
     const boxes = []
     for (let i = 0; i < scale.length; i++) {
       boxes.push(
         <BeatBox
+          inactiveColor={foreground}
           key={i.toString(10)}
           note={scale[i]}
           active={this.state.activeBoxes[i]}
@@ -83,9 +85,9 @@ class BeatColumn extends Component {
   }
 
   render () {
-    const { playing } = this.props
+    const { playing, background, id } = this.props
     return (
-      <Container>
+      <Container background={background} id={id}>
         {this.renderBoxes()}
         <Overlay playing={playing} />
       </Container>

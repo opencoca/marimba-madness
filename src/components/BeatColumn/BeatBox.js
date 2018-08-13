@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   flex: 1;
   margin: 0.5px;
-  background-color: ${props => (props.active ? props.activeColor : '#C8C8C8CC')};
+  background-color: ${props => (props.active ? props.activeColor : props.inactiveColor)};
 `
 
 const pickActiveColor = note => {
@@ -29,10 +29,15 @@ const pickActiveColor = note => {
   }
 }
 
-const BeatBox = ({ active, note, onClick }) => {
+const BeatBox = ({ active, note, onClick, inactiveColor }) => {
   const activeColor = pickActiveColor(note)
   return (
-    <Container active={active} activeColor={activeColor} onClick={onClick} />
+    <Container
+      active={active}
+      activeColor={activeColor}
+      inactiveColor={inactiveColor}
+      onClick={onClick}
+    />
   )
 }
 

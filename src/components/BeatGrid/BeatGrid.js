@@ -5,8 +5,9 @@ import BeatLabels from './BeatLabels'
 
 const Container = styled.div`
   background-color: #232323;
+  border: 0.5px solid ${props => props.background};
+  width: calc(100vw - 1px);
   flex: 1;
-  width: 100%;
   display: flex;
 `
 
@@ -24,14 +25,17 @@ class BeatGrid extends Component {
   }
 
   renderBeatColumns = () => {
-    const { scale, synth, columns } = this.props
+    const { scale, synth, columns, background, foreground } = this.props
     const { count } = this.state
     const cols = []
     for (let i = 0; i < columns; i++) {
       cols.push(
         <BeatColumn
+          background={background}
+          foreground={foreground}
           ref={i.toString(10)}
           key={i.toString(10)}
+          id={i}
           scale={scale}
           playing={count % columns === i}
           synth={synth}
@@ -42,10 +46,10 @@ class BeatGrid extends Component {
   }
 
   render () {
-    const { scale } = this.props
+    const { scale, background } = this.props
     return (
-      <Container>
-        <BeatLabels scale={scale} />
+      <Container background={background}>
+        {/* <BeatLabels scale={scale} /> */}
         {this.renderBeatColumns()}
       </Container>
     )

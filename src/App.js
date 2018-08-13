@@ -67,6 +67,8 @@ class App extends Component {
             synth={this.synth}
             scale={availableNotes}
             columns={columns}
+            background='gray'
+            foreground='#ffffff80'
           />
           <BeatControls
             onPlay={this.play}
