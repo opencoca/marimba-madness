@@ -1,24 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
-const Container = styled.div`
-  width: 50px;
-  height: 50px;
-  margin: 8px;
-  border-radius: 25px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: none;
-  -webkit-transition: box-shadow 200ms;
-  transition: box-shadow 200ms;
-  transition-timing-function: ease-in-out;
-
-  &:hover {
-    box-shadow: 0 0 5px 3px #FFFFFF40;
-  }
-`
+import BeatButton from './BeatButton'
 
 const Play = styled.i`
   font-size: 24px;
@@ -42,12 +24,12 @@ class BeatToggle extends Component {
   render () {
     const { playing } = this.state
     return (
-      <Container onClick={this.onClick}>
+      <BeatButton onClick={this.onClick}>
         <Play
           playing={playing}
           className={`fas ${playing ? 'fa-pause' : 'fa-play'}`}
         />
-      </Container>
+      </BeatButton>
     )
   }
 }

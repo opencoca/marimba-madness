@@ -52,6 +52,11 @@ class BeatColumn extends Component {
     })
   }
 
+  resetColumn = () => {
+    const { rows } = this.props
+    this.setState({ activeBoxes: new Array(rows).fill(false), activeNotes: [] })
+  }
+
   renderBoxes = () => {
     const { scale } = this.props
     const boxes = []

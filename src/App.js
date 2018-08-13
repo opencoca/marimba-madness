@@ -47,6 +47,8 @@ class App extends Component {
     this.synth.setBPM(event.target.value)
   }
 
+  onReset = () => {}
+
   changeColumns = diff => {
     const currentCols = this.state.columns
     if (currentCols + diff < 4 || currentCols + diff > 30) return
@@ -69,6 +71,7 @@ class App extends Component {
             columns={columns}
           />
           <BeatControls
+            onReset={this.onReset}
             onPlay={this.play}
             changeColumns={this.changeColumns}
             adjustBPM={this.adjustBPM}
