@@ -26,5 +26,10 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     }
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
