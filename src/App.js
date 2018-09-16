@@ -74,7 +74,6 @@ class App extends Component {
       'B2',
       'C3'
     ].reverse()
-    console.log(scale)
     this.setState({ availableNotes: scale })
   }
 

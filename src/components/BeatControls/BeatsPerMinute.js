@@ -24,18 +24,19 @@ class BeatsPerMinute extends Component {
     this.state = {
       bpm: this.props.bpm || 160
     }
+
+    this.input = React.createRef()
   }
   componentDidMount () {
-    if (this.input) {
-      this.input.value = this.state.bpm
-      this.addEventListeners(this.handleChange)
-    }
+    const { current: input } = this.input
+    input.value = this.state.bpm
+    this.addEventListeners(this.handleChange)
   }
 
   componentWillUnmount () {
-    if (this.input) {
-      this.removeEventListeners(this.handleChange)
-    }
+    const { current: input } = this.input
+    input.value = this.state.bpm
+    this.removeEventListeners(this.handleChange)
   }
 
   handleChange = event => {
@@ -45,13 +46,15 @@ class BeatsPerMinute extends Component {
   }
 
   addEventListeners (handleChange) {
-    this.input.addEventListener('input', handleChange)
-    this.input.addEventListener('change', handleChange)
+    const { current: input } = this.input
+    input.addEventListener('input', handleChange)
+    input.addEventListener('change', handleChange)
   }
 
   removeEventListeners (handleChange) {
-    this.input.removeEventListener('input', handleChange)
-    this.input.removeEventListener('change', handleChange)
+    const { current: input } = this.input
+    input.removeEventListener('input', handleChange)
+    input.removeEventListener('change', handleChange)
   }
 
   render () {
@@ -59,12 +62,7 @@ class BeatsPerMinute extends Component {
     return (
       <Container>
         <Label>{`Beats Per Minute - ${bpm}`}</Label>
-        <RangeInput
-          innerRef={c => (this.input = c)}
-          type='range'
-          min='80'
-          max='200'
-        />
+        <RangeInput ref={this.input} type='range' min='80' max='200' />
       </Container>
     )
   }

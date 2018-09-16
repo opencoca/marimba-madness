@@ -1,5 +1,9 @@
 {
   "presets": [
-    "env", "stage-1"
+    "env",
+    "stage-1"
+  ],
+  "plugins": [
+    "styled-components"
   ]
 }
