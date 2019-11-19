@@ -1,5 +1,5 @@
 import { scale } from '../constants/scale'
-const Tone = require('tone')
+import Tone from 'tone'
 
 const getTransport = () => {
   return Tone.Transport
@@ -17,6 +17,9 @@ class Synth {
   }
 
   toggle () {
+    if (Tone.context.state !== 'running') {
+      Tone.context.resume()
+    }
     getTransport().toggle()
   }
 
