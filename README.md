@@ -8,5 +8,5 @@
 # Building for deployment
 
 - `yarn install` this is only needed if you have not run yarn install aleady
-- `yarn build'
+- `yarn build`
 
